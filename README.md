@@ -1,7 +1,7 @@
 # IPL Estimator
-Calculates the probability that each team makes into playoffs by recursively playing all the games and seeing all the
-result possibilities.
-
+* Calculates the probability that each team makes into playoffs by recursively playing all the games and seeing all the
+result possibilities, and generates graph of the probabilities.
+* Graphs the progress of all the IPL teams after each match.
 ## Assumption (Tie Case)
 
 In case of ties that happen when more than one team have equal points and are fighting for top 4 positions, I have
@@ -35,8 +35,9 @@ pip3 install seaborn
 
 ## Usage
 
-With all the requirements fulfilled, run the module `playoff_estimator.py`.
-
+With all the requirements fulfilled, run the module:
+ * `playoff_estimator.py` for generating bar graph of the estimated playoffs probabilities.
+ * `progress.py` for generating line graph of the progress made by each team match after match.
 ## Authors
 
 * **Suraj Regmi** - *Initial work* - [Suraj](https://github.com/suraj1127)
