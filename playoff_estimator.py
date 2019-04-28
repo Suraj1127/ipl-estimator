@@ -140,17 +140,23 @@ def get_plotting_data(tmap):
     """
     Returns the dataframe consisting of teams column and probability column.
     """
-    return pd.DataFrame({'Team': [tmap[i] for i in range(1, 9)], 'Playoff Probability': [get_worst_prob(i) for i in range(1, 9)]})
+    return pd.DataFrame({
+        'Team': [tmap[i] for i in range(1, 9)],
+        'Estimated Playoff Probability': [get_estimated_prob(i) for i in range(1, 9)],
+        'Worst Playoff Probability': [get_worst_prob(i) for i in range(1, 9)],
+    })
 
 
 def plot(folder_name, data):
     """
     Plots the bar chart and saves the PNG image inside the folder, folder_name.
     """
+
+    # for estimated playoff probability
     plt.figure(figsize=(30, 16))
 
     sns.set(style="whitegrid")
-    ax = sns.barplot(x="Team", y="Playoff Probability", data=data)
+    ax = sns.barplot(x="Team", y="Estimated Playoff Probability", data=data)
 
     ax.xaxis.label.set_size(40)
     ax.yaxis.label.set_size(40)
@@ -162,10 +168,31 @@ def plot(folder_name, data):
         ax.yaxis.get_major_ticks()[i].label.set_fontsize(35)
 
     for i in range(8):
-        ax.text(i, data['Playoff Probability'][i], round(data['Playoff Probability'][i], 3), color='black', ha='center',
+        ax.text(i, data['Estimated Playoff Probability'][i], round(data['Estimated Playoff Probability'][i], 2), color='black', ha='center',
                 fontsize=40)
 
     plt.savefig('{}/estimated_nrr_prob.png'.format(folder_name))
+
+    # for worst playoff probability
+    plt.figure(figsize=(30, 16))
+
+    ax = sns.barplot(x="Team", y="Worst Playoff Probability", data=data)
+
+    ax.xaxis.label.set_size(40)
+    ax.yaxis.label.set_size(40)
+
+    for i in range(8):
+        ax.xaxis.get_major_ticks()[i].label.set_fontsize(35)
+
+    for i in range(6):
+        ax.yaxis.get_major_ticks()[i].label.set_fontsize(35)
+
+    for i in range(8):
+        ax.text(i, data['Worst Playoff Probability'][i], round(data['Worst Playoff Probability'][i], 2),
+                color='black', ha='center',
+                fontsize=40)
+
+    plt.savefig('{}/worst_nrr_prob.png'.format(folder_name))
 
 
 def main():
